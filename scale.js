@@ -61,7 +61,7 @@ function getRelativeQuestion(mode) {
     let answer = MinorScale[idx];
 
     if (mode != "major" && mode != "minor") {
-        return { question: "", answer: "" };
+        return { question: "", answer: "" };// pas compris
     }
 
     if (mode === "major") {
@@ -109,4 +109,6 @@ $(".key").click(function(){
     }
 })
 
-.addEventListener("click", function(){ alert("Hello World!"); });
+document.addEventListener("click", function(){ 
+    alert("Hello World!"); 
+});
