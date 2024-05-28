@@ -95,20 +95,36 @@ function ShowTheQuestion(question){
  * we call the function that listen the next question
  */
 
-$(".key").click(function(){
-    getAlterationsQuestion();
-    ShowTheQuestion(answer);
+// $(".key").click(function(){
+//     getAlterationsQuestion();
+//     ShowTheQuestion(answer);
 
 
-    if ($(this).attr("id")==MajorScale[idx]){
-        $("#MajorScale").addClass("hidden");
-        $("#MinorScale").removeClass("hidden");
-        getRelativeQuestion(mode)
+//     if ($(this).attr("id")==MajorScale[idx]){
+//         $("#MajorScale").addClass("hidden");
+//         $("#MinorScale").removeClass("hidden");
+//         getRelativeQuestion(mode)
 
 
-    }
-})
+//     }
+// })
 
-document.addEventListener("click", function(){ 
-    alert("Hello World!"); 
-});
+
+
+
+function start(){
+    const {question,answer} = getAlterationsQuestion();
+    
+    ShowTheQuestion(question)
+    console.log(answer);
+    $(".key").click(function(){
+        if ($(this).attr("key") == answer){
+            ShowTheQuestion(answer);
+        } else{
+            $("h1").text("Boo");
+
+        }
+} )
+}
+
+start();
