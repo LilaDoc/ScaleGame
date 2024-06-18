@@ -27,25 +27,27 @@ function getAlterationsQuestionForIDX(idx) {
     // C - Middle Neutral point
     if (idx === 6) {
         question = `${AlterationQuestionTemplate} ${MajorScale[idx]} ?`;
-        answer = "0";
+        answer = "n0";
         return {question, answer};
     }
 
     // Sharp side
     if (idx > 6) {
         question = `${AlterationQuestionTemplate} ${MajorScale[idx]} ?`;
-        answer = `${idx - 6}#`;
-        return {question, answer};
+        answer = `n${idx - 6}#`;
+        mode = "#"
+        return {question, answer, mode};
     }
 
     // Flat side
     if (idx < 6) {
         question = `${AlterationQuestionTemplate} ${MajorScale[idx]} ?`;
-        answer = `${6 - idx}b`;
-        return {question, answer};
+        answer = `n${6 - idx}b`;
+        mode = "b"
+        return {question, answer, mode};
     }
 
-    return {question: "", answer: ""};
+    return {question: "", answer: "", mode: ""};
 }
 
 /**
@@ -66,8 +68,14 @@ function getRelativeQuestion(mode) {
 
     if (mode === "major") {
         [ask, answer] = [MinorScale[idx], MajorScale[idx]];
+        //affiche majorpad
+        $("#MinorKey").show();
+        $("#MajorKey").hide();
     } else {
         [ask, answer] = [MajorScale[idx], MinorScale[idx]];
+        //affiche minor pad
+        $("#MajorKey").show();
+        $("#MinorKey").hide();
     }
 
     return {
@@ -108,23 +116,107 @@ function ShowTheQuestion(question){
 
 //     }
 // })
+function NextQuestion(){
+    console.log("Next question")
+    const idquestion = Math.floor(Math.random() * 10);
+    if (idquestion>5){
+        $("#mode").hide();
+         $("#Alteration").show();
+        StartAlterationQuestion();
 
+    }else{
+        $("#Alteration").hide();
+        $("#mode").show();
+        StartRelativeQuestion();
+    }
+}
 
+function ShowGoodJob(){
+    $("h1").text("Good Job");
+}
+function ShowBoo(){
+    $("h1").text("Boo");
+}
 
-
-function start(){
+function StartAlterationQuestion(){
     const {question,answer} = getAlterationsQuestion();
     
+    let userAnswer = "";
+    // CheckAnswer(answer, userAnswerAlteration)
     ShowTheQuestion(question)
     console.log(answer);
     $(".key").click(function(){
-        if ($(this).attr("key") == answer){
-            ShowTheQuestion(answer);
-        } else{
-            $("h1").text("Boo");
+        console.log(answer.length,userAnswer.length )
+        const answerClicked = $(this).attr("id")
+        console.log(answerClicked);
+        userAnswer += answerClicked;
+        console.log(userAnswer);
+        if (answer.length == userAnswer.length && answer.length>0){
+            console.log(answer.length,userAnswer.length )
+            CheckAnswer();
 
         }
+             
+
 } )
 }
 
-start();
+// function StartRelativeQuestion(){
+//     let mode = GetMode();
+//     console.log(mode);
+//     const {question,answer} = getRelativeQuestion(mode);
+//     ShowTheQuestion(question);
+//     console.log(answer);
+//     $(".key").click(function(){
+//         const clickedAnswer = $(this).attr("id");
+//         console.log(clickedAnswer);
+//         CheckAnswer(answer,clickedAnswer,mode)
+//     })
+
+
+// }
+
+function CheckAnswer(answer, userAnswer,mode){
+    console.log("enter in checkanswer fn");
+    // console.log (`the mode is ${mode}`);
+    // getRelativeQuestion(mode);
+    if (userAnswer == answer){
+        console.log("ansewer checked");
+        ShowGoodJob();
+        Restart();
+    } else {
+        ShowBoo();
+        Restart();
+        
+
+
+    }
+
+
+}
+
+function Animate(){
+
+}
+function Restart(){
+    setTimeout(function () {
+        NextQuestion();
+      }, 1000);
+}
+
+function GetMode(){
+    const idmode = Math.floor(Math.random() * 10);
+    if(idmode <5){
+        return "major";
+    }
+    else{
+        return "minor";
+    }
+}
+NextQuestion();
+
+//Next step
+// try with ejs
+
+
+
