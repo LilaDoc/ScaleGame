@@ -63,19 +63,17 @@ function getRelativeQuestion(mode) {
     let answer = MinorScale[idx];
 
     if (mode != "major" && mode != "minor") {
-        return { question: "", answer: "" };// pas compris
+        return { question: "", answer: "" };
     }
 
     if (mode === "major") {
         [ask, answer] = [MinorScale[idx], MajorScale[idx]];
         //affiche majorpad
-        $("#MinorKey").show();
-        $("#MajorKey").hide();
+
     } else {
         [ask, answer] = [MajorScale[idx], MinorScale[idx]];
         //affiche minor pad
-        $("#MajorKey").show();
-        $("#MinorKey").hide();
+    
     }
 
     return {
@@ -116,20 +114,24 @@ function ShowTheQuestion(question){
 
 //     }
 // })
+
+//Select a new question
+//Show the corresponding pad
 function NextQuestion(){
     console.log("Next question")
-    const idquestion = Math.floor(Math.random() * 10);
-    if (idquestion>5){
-        $("#mode").hide();
-         $("#Alteration").show();
-        StartAlterationQuestion();
+    // const idquestion = Math.floor(Math.random() * 10);
+    // if (idquestion>5){
+    //     $("#mode").addClass("hidden");
+    //      $("#Alteration").removeClass("hidden");
+    //     StartAlterationQuestion();
 
-    }else{
-        $("#Alteration").hide();
-        $("#mode").show();
-        StartRelativeQuestion();
-    }
-}
+    // }else{
+    //     $("#Alteration").addClass("hidden");
+    //     $("#mode").removeClass("hidden");
+    //     StartRelativeQuestion();
+    // }
+    // uncomment to go back to normal
+ }
 
 function ShowGoodJob(){
     $("h1").text("Good Job");
@@ -139,50 +141,66 @@ function ShowBoo(){
 }
 
 function StartAlterationQuestion(){
-    const {question,answer} = getAlterationsQuestion();
+    console.log("alteration");
+    // const {question,answer} = getAlterationsQuestion();
+    const {question,answer} =  {question:"How many alterations in", answer:"n1b"};;
     
     let userAnswer = "";
     // CheckAnswer(answer, userAnswerAlteration)
     ShowTheQuestion(question)
     console.log(answer);
-    $(".key").click(function(){
-        console.log(answer.length,userAnswer.length )
+    $(".key").on( "click", function() {
+        
         const answerClicked = $(this).attr("id")
         console.log(answerClicked);
         userAnswer += answerClicked;
+        
         console.log(userAnswer);
+        console.log(answer.length,userAnswer.length )
         if (answer.length == userAnswer.length && answer.length>0){
             console.log(answer.length,userAnswer.length )
-            CheckAnswer();
-
+            // CheckAnswer();
+            console.log ("length ok");
         }
              
 
 } )
 }
 
-// function StartRelativeQuestion(){
-//     let mode = GetMode();
-//     console.log(mode);
-//     const {question,answer} = getRelativeQuestion(mode);
-//     ShowTheQuestion(question);
-//     console.log(answer);
-//     $(".key").click(function(){
-//         const clickedAnswer = $(this).attr("id");
-//         console.log(clickedAnswer);
-//         CheckAnswer(answer,clickedAnswer,mode)
-//     })
+function StartRelativeQuestion(){
+    // let mode = GetMode();
+    let mode = "major";
+    console.log(mode);
+    ShowModePad(mode);
+
+   
+    const {question,answer} = {
+        question: `What's the  relative of  ?`,
+        answer: "Eb"
+    };
+    // const {question,answer} = getRelativeQuestion(mode);
+    // switch those to to go back to normal
+ 
+    ShowTheQuestion(question);
+    console.log(answer);
+    $(".key").on( "click", function() {
+        const clickedAnswer = $(this).attr("id");
+        console.log(clickedAnswer);
+        CheckAnswer(answer,clickedAnswer,mode)
+        
+    })
 
 
-// }
+}
 
-function CheckAnswer(answer, userAnswer,mode){
+function CheckAnswer(answer, userAnswer){
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
     if (userAnswer == answer){
         console.log("ansewer checked");
         ShowGoodJob();
+        console.log("restart");
         Restart();
     } else {
         ShowBoo();
@@ -199,6 +217,7 @@ function Animate(){
 
 }
 function Restart(){
+    console.log("Restart fn");
     setTimeout(function () {
         NextQuestion();
       }, 1000);
@@ -213,10 +232,21 @@ function GetMode(){
         return "minor";
     }
 }
+
+function ShowModePad(mode){
+    if(mode == "minor"){
+        console.log("show minor pad");
+        $("#MinorKey").removeClass("hidden");
+        $("#MajorKey").addClass("hidden");
+    }else{
+        console.log("major pad");
+        $("#MajorKey").removeClass("hidden");
+        $("#MinorKey").addClass("hidden");
+    }
+}
+
+
+
 NextQuestion();
 
 //Next step
-// try with ejs
-
-
-
