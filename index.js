@@ -104,19 +104,19 @@ function ShowTheQuestion(question){
 
 //Select a new question
 //Show the corresponding pad
-function NextQuestion(){
+function NextQuestion(score){
     $(".key").off("click");
     console.log("Next question")
     const idquestion = Math.floor(Math.random() * 10);
     if (idquestion>5){
         $("#mode").addClass("hidden");
          $("#Alteration").removeClass("hidden");
-        StartAlterationQuestion();
+        StartAlterationQuestion(score);
 
     }else{
         $("#Alteration").addClass("hidden");
         $("#mode").removeClass("hidden");
-        StartRelativeQuestion();
+        StartRelativeQuestion(score);
     }
     // uncomment to go back to normal
  }
@@ -128,7 +128,7 @@ function ShowBoo(){
     $("h1").text("Nice try");
 }
 
-function StartAlterationQuestion(){
+function StartAlterationQuestion(score){
     console.log("alteration");
     const {question,answer} = getAlterationsQuestion();
     // const {question,answer} =  {question:"How many alterations in", answer:"n1b"};;
@@ -147,17 +147,17 @@ function StartAlterationQuestion(){
         console.log(answer.length,userAnswer.length )
         if (answer.length == userAnswer.length && answer.length>0 ){
             console.log(answer.length,userAnswer.length )
-            CheckAnswer(answer, userAnswer);
+            CheckAnswer(answer, userAnswer,score);
             console.log ("length ok");
         }else if (answer.length < userAnswer.length){
-            CheckAnswer(answer, userAnswer);
+            CheckAnswer(answer, userAnswer,score);
         }
              
 
 } )
 }
 
-function StartRelativeQuestion(){
+function StartRelativeQuestion(score){
     let mode = GetMode();
     // let mode = "major";
     console.log(mode);
@@ -176,25 +176,29 @@ function StartRelativeQuestion(){
     $(".key").on( "click", function() {
         const clickedAnswer = $(this).attr("id");
         console.log(clickedAnswer);
-        CheckAnswer(answer,clickedAnswer)
+        CheckAnswer(answer,clickedAnswer,score)
         
     })
 
 
 }
 
-function CheckAnswer(answer, userAnswer){
+function CheckAnswer(answer, userAnswer,score){
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
     console.log(`userAnswer:${userAnswer}` );
     console.log(`answer:${answer}`  );
     if (userAnswer == answer){
+        score+=1;
+        console.log(`score :${score}`);
+        
         console.log("ansewer checked");
         ShowGoodJob();
         console.log("good job")
         console.log("restart");
-        Restart();
+        
+        Restart(score);
     } else { 
         ShowBoo();
         Reset();
@@ -209,10 +213,10 @@ function CheckAnswer(answer, userAnswer){
 function Animate(){
 
 }
-function Restart(){
+function Restart(score){
     console.log("Restart fn");
     setTimeout(function () {
-        NextQuestion();
+        NextQuestion(score);
       }, 1000);
 }
 
@@ -238,13 +242,20 @@ function ShowModePad(mode){
     }
 }
 
-function Reset(){
-    let score=0;
+function Reset(score){
+    score =0;
+    
     setTimeout(function () {
-        NextQuestion();
+        NextQuestion(score);
       }, 1000);
 }
 
-Reset();
+function Start(){
+    let score=0;
+    $(".score").text(score);
+        NextQuestion(score);
 
+}
+
+Start();
 //Next step
