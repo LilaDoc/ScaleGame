@@ -1,6 +1,7 @@
 
 body{
     font-family: 'Indie Flower', cursive;
+    
 }
 .lines{
     display: flex;
@@ -34,6 +35,7 @@ body{
     width:3rem;
     min-width: 1rem;
     text-align: center;
+    pointer-events: fill;
 }
 
 p{
@@ -69,4 +71,9 @@ p{
 }
 .hidden{
     display: none;
+}
+
+.key:hover{
+    background-color: rgba(6, 6, 6, 0.858);
+    color: aliceblue;
 }

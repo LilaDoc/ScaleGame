@@ -125,7 +125,7 @@ function ShowGoodJob(){
     $("h1").text("Good Job");
 }
 function ShowBoo(){
-    $("h1").text("Boo");
+    $("h1").text("Nice try");
 }
 
 function StartAlterationQuestion(){
@@ -145,10 +145,12 @@ function StartAlterationQuestion(){
         
         console.log(userAnswer);
         console.log(answer.length,userAnswer.length )
-        if (answer.length == userAnswer.length && answer.length>0){
+        if (answer.length == userAnswer.length && answer.length>0 ){
             console.log(answer.length,userAnswer.length )
-            CheckAnswer();
+            CheckAnswer(answer, userAnswer);
             console.log ("length ok");
+        }else if (answer.length < userAnswer.length){
+            CheckAnswer(answer, userAnswer);
         }
              
 
@@ -174,7 +176,7 @@ function StartRelativeQuestion(){
     $(".key").on( "click", function() {
         const clickedAnswer = $(this).attr("id");
         console.log(clickedAnswer);
-        CheckAnswer(answer,clickedAnswer,mode)
+        CheckAnswer(answer,clickedAnswer)
         
     })
 
@@ -185,14 +187,17 @@ function CheckAnswer(answer, userAnswer){
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
+    console.log(`userAnswer:${userAnswer}` );
+    console.log(`answer:${answer}`  );
     if (userAnswer == answer){
         console.log("ansewer checked");
         ShowGoodJob();
+        console.log("good job")
         console.log("restart");
         Restart();
-    } else {
+    } else { 
         ShowBoo();
-        Restart();
+        Reset();
         
 
 
@@ -233,8 +238,13 @@ function ShowModePad(mode){
     }
 }
 
+function Reset(){
+    let score=0;
+    setTimeout(function () {
+        NextQuestion();
+      }, 1000);
+}
 
-
-NextQuestion();
+Reset();
 
 //Next step
