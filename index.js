@@ -101,35 +101,23 @@ function ShowTheQuestion(question){
  * we call the function that listen the next question
  */
 
-// $(".key").click(function(){
-//     getAlterationsQuestion();
-//     ShowTheQuestion(answer);
-
-
-//     if ($(this).attr("id")==MajorScale[idx]){
-//         $("#MajorScale").addClass("hidden");
-//         $("#MinorScale").removeClass("hidden");
-//         getRelativeQuestion(mode)
-
-
-//     }
-// })
 
 //Select a new question
 //Show the corresponding pad
 function NextQuestion(){
+    $(".key").off("click");
     console.log("Next question")
-    // const idquestion = Math.floor(Math.random() * 10);
-    // if (idquestion>5){
-    //     $("#mode").addClass("hidden");
-    //      $("#Alteration").removeClass("hidden");
-    //     StartAlterationQuestion();
+    const idquestion = Math.floor(Math.random() * 10);
+    if (idquestion>5){
+        $("#mode").addClass("hidden");
+         $("#Alteration").removeClass("hidden");
+        StartAlterationQuestion();
 
-    // }else{
-    //     $("#Alteration").addClass("hidden");
-    //     $("#mode").removeClass("hidden");
-    //     StartRelativeQuestion();
-    // }
+    }else{
+        $("#Alteration").addClass("hidden");
+        $("#mode").removeClass("hidden");
+        StartRelativeQuestion();
+    }
     // uncomment to go back to normal
  }
 
@@ -142,8 +130,8 @@ function ShowBoo(){
 
 function StartAlterationQuestion(){
     console.log("alteration");
-    // const {question,answer} = getAlterationsQuestion();
-    const {question,answer} =  {question:"How many alterations in", answer:"n1b"};;
+    const {question,answer} = getAlterationsQuestion();
+    // const {question,answer} =  {question:"How many alterations in", answer:"n1b"};;
     
     let userAnswer = "";
     // CheckAnswer(answer, userAnswerAlteration)
@@ -159,7 +147,7 @@ function StartAlterationQuestion(){
         console.log(answer.length,userAnswer.length )
         if (answer.length == userAnswer.length && answer.length>0){
             console.log(answer.length,userAnswer.length )
-            // CheckAnswer();
+            CheckAnswer();
             console.log ("length ok");
         }
              
@@ -168,17 +156,17 @@ function StartAlterationQuestion(){
 }
 
 function StartRelativeQuestion(){
-    // let mode = GetMode();
-    let mode = "major";
+    let mode = GetMode();
+    // let mode = "major";
     console.log(mode);
     ShowModePad(mode);
 
    
-    const {question,answer} = {
-        question: `What's the  relative of  ?`,
-        answer: "Eb"
-    };
-    // const {question,answer} = getRelativeQuestion(mode);
+    // const {question,answer} = {
+    //     question: `What's the  relative of  ?`,
+    //     answer: "Eb"
+    // };
+    const {question,answer} = getRelativeQuestion(mode);
     // switch those to to go back to normal
  
     ShowTheQuestion(question);
