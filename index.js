@@ -106,7 +106,7 @@ function ShowTheQuestion(question){
 //Select a new question
 //Show the corresponding pad
 function NextQuestion(score, _timerCheck){
-    Countdown(10, _timerCheck)
+    // Countdown(10, _timerCheck)
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -209,7 +209,7 @@ function Restart(score, _timerCheck){
     console.log("Restart fn");
     setTimeout(function () {
         NextQuestion(score, _timerCheck);
-      }, 1000);
+      }, 2000);
 }
 
 function GetMode(){
@@ -239,7 +239,7 @@ function Reset(score){
     _timerCheck = false;
     setTimeout(function () {
         NextQuestion(score);
-      }, 1000);
+      }, 2000);
 }
 
 function Start(){
@@ -254,24 +254,24 @@ function Start(){
 Start();
 //Next step
 
-function Countdown(seconds, _timerCheck) {
-    function tick(_timerCheck) {
-        if (_timerCheck == false){
-                $(".timer").text(seconds);
-                console.log(seconds);
-            if (seconds > 0) {
-                seconds--;
+// function Countdown(seconds, _timerCheck) {
+//     function tick(_timerCheck) {
+//         if (_timerCheck == false){
+//                 $(".timer").text(seconds);
+//                 console.log(seconds);
+//             if (seconds > 0) {
+//                 seconds--;
                 
-                setTimeout(tick, 1000);
-            } else {
-                console.log("time's up");
-                ShowMessage("time's up!");
-                setTimeout(Start, 3000);
-            }
-        }
-    }
-    tick();
-  }
+//                 setTimeout(tick, 1000);
+//             } else {
+//                 console.log("time's up");
+//                 ShowMessage("time's up!");
+//                 setTimeout(Start, 3000);
+//             }
+//         }
+//     }
+//     tick();
+//   }
 
   function ShowMessage(message){
 
