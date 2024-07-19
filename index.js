@@ -93,7 +93,6 @@ function ShowTheQuestion(question){
 
 }
 
-
 /** when the user click on a button 
  * the button that has been click animate
  * if it is the right one: 
@@ -106,8 +105,6 @@ function ShowTheQuestion(question){
 //Select a new question
 //Show the corresponding pad
 function NextQuestion(score){
-    Countdown(10)
-    $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
     const idquestion = Math.floor(Math.random() * 10);
@@ -197,7 +194,6 @@ function CheckAnswer(answer, userAnswer,score){
         console.log(`score :${score}`);
         
         console.log("ansewer checked");
-
         ShowGoodJob();
         console.log("good job")
         console.log("restart");
@@ -205,7 +201,6 @@ function CheckAnswer(answer, userAnswer,score){
         Restart(score);
     } else { 
         ShowBoo();
-
         Reset();
         
 
@@ -258,33 +253,9 @@ function Reset(score){
 function Start(){
     let score=0;
     $(".score").text(score);
-    
         NextQuestion(score);
 
 }
 
 Start();
 //Next step
-
-function Countdown(seconds) {
-    function tick() {
-        $(".timer").text(seconds);
-        console.log(seconds);
-      if (seconds > 0) {
-        seconds--;
-
-        setTimeout(tick, 1000);
-      } else {
-        console.log("This is too slow you can do better!");
-        ShowMessage("This is too slow you can do better!");
-        setTimeout(Start, 3000);
-      }
-    }
-    tick();
-  }
-
-  function ShowMessage(message){
-
-    $("h1").text(message);
-
-}
