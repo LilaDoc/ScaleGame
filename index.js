@@ -105,8 +105,8 @@ function ShowTheQuestion(question){
 
 //Select a new question
 //Show the corresponding pad
-function NextQuestion(score){
-    Countdown(10)
+function NextQuestion(score, _timerCheck){
+    Countdown(10, _timerCheck)
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -114,12 +114,12 @@ function NextQuestion(score){
     if (idquestion>5){
         $("#mode").addClass("hidden");
          $("#Alteration").removeClass("hidden");
-        StartAlterationQuestion(score);
+        StartAlterationQuestion(score, _timerCheck);
 
     }else{
         $("#Alteration").addClass("hidden");
         $("#mode").removeClass("hidden");
-        StartRelativeQuestion(score);
+        StartRelativeQuestion(score, _timerCheck);
     }
     // uncomment to go back to normal
  }
@@ -131,13 +131,13 @@ function ShowBoo(){
     $("h1").text("Nice try");
 }
 
-function StartAlterationQuestion(score){
+function StartAlterationQuestion(score, _timerCheck){
     console.log("alteration");
     const {question,answer} = getAlterationsQuestion();
     // const {question,answer} =  {question:"How many alterations in", answer:"n1b"};;
     
     let userAnswer = "";
-    // CheckAnswer(answer, userAnswerAlteration)
+
     ShowTheQuestion(question)
     console.log(answer);
     $(".key").on( "click", function() {
@@ -150,48 +150,39 @@ function StartAlterationQuestion(score){
         console.log(answer.length,userAnswer.length )
         if (answer.length == userAnswer.length && answer.length>0 ){
             console.log(answer.length,userAnswer.length )
-            CheckAnswer(answer, userAnswer,score);
+            CheckAnswer(answer, userAnswer,score, _timerCheck);
             console.log ("length ok");
         }else if (answer.length < userAnswer.length){
-            CheckAnswer(answer, userAnswer,score);
+            CheckAnswer(answer, userAnswer,score, _timerCheck);
         }
-             
-
-} )
+    } )
 }
 
-function StartRelativeQuestion(score){
+function StartRelativeQuestion(score, _timerCheck){
     let mode = GetMode();
     // let mode = "major";
     console.log(mode);
     ShowModePad(mode);
-
-   
-    // const {question,answer} = {
-    //     question: `What's the  relative of  ?`,
-    //     answer: "Eb"
-    // };
     const {question,answer} = getRelativeQuestion(mode);
-    // switch those to to go back to normal
- 
     ShowTheQuestion(question);
     console.log(answer);
     $(".key").on( "click", function() {
         const clickedAnswer = $(this).attr("id");
         console.log(clickedAnswer);
-        CheckAnswer(answer,clickedAnswer,score)
+        CheckAnswer(answer,clickedAnswer,score, _timerCheck)
         
     })
 
 
 }
 
-function CheckAnswer(answer, userAnswer,score){
+function CheckAnswer(answer, userAnswer,score, _timerCheck){
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
     console.log(`userAnswer:${userAnswer}` );
     console.log(`answer:${answer}`  );
+    _timerCheck=true;
     if (userAnswer == answer){
         score+=1;
         console.log(`score :${score}`);
@@ -202,14 +193,10 @@ function CheckAnswer(answer, userAnswer,score){
         console.log("good job")
         console.log("restart");
         
-        Restart(score);
+        Restart(score, _timerCheck);
     } else { 
         ShowBoo();
-
         Reset();
-        
-
-
     }
 
 
@@ -218,10 +205,10 @@ function CheckAnswer(answer, userAnswer,score){
 function Animate(){
 
 }
-function Restart(score){
+function Restart(score, _timerCheck){
     console.log("Restart fn");
     setTimeout(function () {
-        NextQuestion(score);
+        NextQuestion(score, _timerCheck);
       }, 1000);
 }
 
@@ -249,7 +236,7 @@ function ShowModePad(mode){
 
 function Reset(score){
     score =0;
-    
+    _timerCheck = false;
     setTimeout(function () {
         NextQuestion(score);
       }, 1000);
@@ -257,28 +244,31 @@ function Reset(score){
 
 function Start(){
     let score=0;
+    let _timerCheck = false;
     $(".score").text(score);
     
-        NextQuestion(score);
+        NextQuestion(score,_timerCheck);
 
 }
 
 Start();
 //Next step
 
-function Countdown(seconds) {
-    function tick() {
-        $(".timer").text(seconds);
-        console.log(seconds);
-      if (seconds > 0) {
-        seconds--;
-
-        setTimeout(tick, 1000);
-      } else {
-        console.log("This is too slow you can do better!");
-        ShowMessage("This is too slow you can do better!");
-        setTimeout(Start, 3000);
-      }
+function Countdown(seconds, _timerCheck) {
+    function tick(_timerCheck) {
+        if (_timerCheck == false){
+                $(".timer").text(seconds);
+                console.log(seconds);
+            if (seconds > 0) {
+                seconds--;
+                
+                setTimeout(tick, 1000);
+            } else {
+                console.log("time's up");
+                ShowMessage("time's up!");
+                setTimeout(Start, 3000);
+            }
+        }
     }
     tick();
   }
