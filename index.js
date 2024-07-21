@@ -106,7 +106,7 @@ function ShowTheQuestion(question){
 //Select a new question
 //Show the corresponding pad
 function NextQuestion(score){
-    Countdown(10)
+    // Countdown(10)
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -266,22 +266,22 @@ function Start(){
 Start();
 //Next step
 
-function Countdown(seconds) {
-    function tick() {
-        $(".timer").text(seconds);
-        console.log(seconds);
-      if (seconds > 0) {
-        seconds--;
+// function Countdown(seconds) {
+//     function tick() {
+//         $(".timer").text(seconds);
+//         console.log(seconds);
+//       if (seconds > 0) {
+//         seconds--;
 
-        setTimeout(tick, 1000);
-      } else {
-        console.log("This is too slow you can do better!");
-        ShowMessage("This is too slow you can do better!");
-        setTimeout(Start, 3000);
-      }
-    }
-    tick();
-  }
+//         setTimeout(tick, 1000);
+//       } else {
+//         console.log("This is too slow you can do better!");
+//         ShowMessage("This is too slow you can do better!");
+//         setTimeout(Start, 3000);
+//       }
+//     }
+//     tick();
+//   }
 
   function ShowMessage(message){
 
