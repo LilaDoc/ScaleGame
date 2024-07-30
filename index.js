@@ -106,7 +106,7 @@ function ShowTheQuestion(question){
 //Select a new question
 //Show the corresponding pad
 function NextQuestion(score){
-    Countdown(10)
+    Countdown();
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -187,6 +187,7 @@ function StartRelativeQuestion(score){
 }
 
 function CheckAnswer(answer, userAnswer,score){
+    StopTimer(countInterval);
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
@@ -264,27 +265,36 @@ function Start(){
 }
 
 Start();
-//Next step
 
-function Countdown(seconds) {
-    function tick() {
-        $(".timer").text(seconds);
-        console.log(seconds);
-      if (seconds > 0) {
-        seconds--;
-
-        setTimeout(tick, 1000);
-      } else {
-        console.log("This is too slow you can do better!");
+function TimeIsOut(){
+            console.log("This is too slow you can do better!");
         ShowMessage("This is too slow you can do better!");
         setTimeout(Start, 3000);
-      }
-    }
-    tick();
-  }
+}
+function Countdown(){
+    let counter =0;
+    const countInterval =setInterval(Count,1000);
+    
+    function Count(){
+        counter+=1;
+        console.log(counter)
+        $(".timer").text(counter);
+        if(counter==10){
 
+            StopTimer(countInterval);
+            TimeIsOut()
+        }
+    }
+}
+function StopTimer(countInterval){
+    clearInterval(countInterval);
+}
   function ShowMessage(message){
 
     $("h1").text(message);
 
 }
+// timer in place with setInterval 
+// how to stop the timer when the user anwers?
+//Do the shart
+
