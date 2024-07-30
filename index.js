@@ -107,6 +107,7 @@ function ShowTheQuestion(question){
 //Show the corresponding pad
 function NextQuestion(score){
     // Countdown(10)
+    $("body").removeClass("clicked");
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -141,7 +142,7 @@ function StartAlterationQuestion(score){
     ShowTheQuestion(question)
     console.log(answer);
     $(".key").on( "click", function() {
-        
+        $(this).addClass("clicked");
         const answerClicked = $(this).attr("id")
         console.log(answerClicked);
         userAnswer += answerClicked;
