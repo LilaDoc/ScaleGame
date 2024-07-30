@@ -107,7 +107,7 @@ function ShowTheQuestion(question){
 //Show the corresponding pad
 function NextQuestion(score){
     // Countdown(10)
-    $("body").removeClass("clicked");
+    $(".key").removeClass("clicked");
     $(".score").text(score);
     $(".key").off("click");
     console.log("Next question")
@@ -220,6 +220,7 @@ function Animate(){
 
 }
 function Restart(score){
+    $(".key").removeClass("clicked");
     console.log("Restart fn");
     setTimeout(function () {
         NextQuestion(score);
@@ -249,6 +250,7 @@ function ShowModePad(mode){
 }
 
 function Reset(score){
+    $(".key").removeClass("clicked");
     score =0;
     
     setTimeout(function () {
@@ -257,6 +259,7 @@ function Reset(score){
 }
 
 function Start(){
+    $(".key").removeClass("clicked");
     let score=0;
     $(".score").text(score);
     
