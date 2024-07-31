@@ -206,7 +206,7 @@ function CheckAnswer(answer, userAnswer,score){
         ShowGoodJob();
         console.log("good job")
         console.log("restart");
-        
+        $(".key").removeClass("clicked");
         Restart(score);
     } else { 
         if (score>Number(hightScore)){
