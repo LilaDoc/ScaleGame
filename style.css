@@ -2,8 +2,11 @@
 body{
     font-family: "Quicksand", sans-serif;
     font-optical-sizing: auto;
+
     
+
 }
+
 .lines{
     display: flex;
     justify-content: center;
@@ -18,17 +21,19 @@ body{
     /* padding: 7rem; */
     padding-top: 0;
     padding-bottom: 0;
+    margin-bottom: 2rem;
     width: 300px;
     height: 300px;
 
 }
 
 .key{
+    background-color: rgb(251, 251, 251);
     display: flex ;
     justify-content: center;
     border: 1px solid;
     box-shadow:  0 0 16px rgba(0,0,0,0.2);
-    border-radius: 30%;
+    border-radius: 9%;
     padding: 0.5rem;
     align-items: center;
     margin: 0.5rem;
@@ -52,12 +57,12 @@ p{
     margin-top: 1rem;
 
 }
-.hightScoreContainer{
+.highScoreContainer{
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
 
 }
 .timerContainer{
@@ -84,7 +89,7 @@ p{
 .question{
 
     font-size: 10pt;
-    margin-top: 3rem;
+    margin-top: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -97,7 +102,7 @@ h1 {
     justify-content: center;
     font-size: 37pt ;
 }
-.hightScore{
+.highScore{
     display: flex;
     justify-content: center;
     font-size: 17pt ;

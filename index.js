@@ -107,9 +107,9 @@ function ShowTheQuestion(question){
 //Show the corresponding pad
 function NextQuestion(score){
     // Countdown(10)\
-    let hightScore =localStorage.getItem("hightScore");
-    ShowHightScore(hightScore);
-    console.log(`hightsscore;${hightScore}`);
+    let highScore =localStorage.getItem("highScore");
+    ShowHighScore(highScore);
+    console.log(`highsscore;${highScore}`);
     $(".key").removeClass("clicked");
     $(".score").text(score);
     $(".key").off("click");
@@ -191,7 +191,7 @@ function StartRelativeQuestion(score){
 }
 
 function CheckAnswer(answer, userAnswer,score){
-    let hightScore =localStorage.getItem("hightScore");
+    let highScore =localStorage.getItem("highScore");
     console.log("enter in checkanswer fn");
     // console.log (`the mode is ${mode}`);
     // getRelativeQuestion(mode);
@@ -209,9 +209,9 @@ function CheckAnswer(answer, userAnswer,score){
         $(".key").removeClass("clicked");
         Restart(score);
     } else { 
-        if (score>Number(hightScore)){
-            console.log(`Score:${score} > hightScore:${hightScore}`);
-            localStorage.setItem("hightScore", score.toString());
+        if (score>Number(highScore)){
+            console.log(`Score:${score} > highScore:${highScore}`);
+            localStorage.setItem("highScore", score.toString());
             ShowBoo();
             setTimeout(function () {
                 $("h1").text("Bravo! This is your highest score!");
@@ -243,11 +243,11 @@ function Restart(score){
       }, 1000);
       
 }
-function ShowHightScore(hightScore){
-    $("#hightScore").text(hightScore);
+function ShowHighScore(highScore){
+    $("#highScore").text(highScore);
 }
-// function GrabHightScore(){
-//     return localStorage.getItem("hightScore")
+// function GrabHighScore(){
+//     return localStorage.getItem("highScore")
 // }
 function GetMode(){
     const idmode = Math.floor(Math.random() * 10);
@@ -272,9 +272,9 @@ function ShowModePad(mode){
 }
 
 function Reset(score){
-    let hightScore = localStorage.getItem("hightScore")
+    let highScore = localStorage.getItem("highScore")
     $(".key").removeClass("clicked");
-    ShowHightScore(hightScore);
+    ShowHighScore(highScore);
     score =0;
     
     setTimeout(function () {
@@ -284,17 +284,17 @@ function Reset(score){
 
 function Start(){
     $(".key").removeClass("clicked");
-    let hightScore = localStorage.getItem("hightScore")
-    if (hightScore) {
+    let highScore = localStorage.getItem("highScore")
+    if (highScore) {
         
-        ShowHightScore(hightScore)
+        ShowHighScore(highScore)
 
     }else{
-        localStorage.setItem("hightScore", "0");
-    ShowHightScore(hightScore);
+        localStorage.setItem("highScore", "0");
+    ShowHighScore(highScore);
     }
 
-    console.log(`hightscore:${hightScore}`);
+    console.log(`highscore:${highScore}`);
     let score=0;
     $(".score").text(score);
     
